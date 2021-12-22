@@ -3,12 +3,16 @@
 <div class="row">
   <h1 class="text-center">Edit Campground</h1>
   <div class="col-6 offset-3">
-    <form action="/campgrounds" method="Post">
+    <form action="/campgrounds" method="Post" novalidate class="validated-form">
       <div class="mb-3">
         <label class="form-label" for="title">Title</label>
         <input class="form-control" type="text" id="title"
-        name="campground[title]" value=<%= campground.title %> />
+        name="campground[title]" value='<%= campground.title %>' required />
+        <div class="valid-feedback">
+          Looks good!
+        </div>
       </div>
+
       <div class="mb-3">
         <label class="form-label" for="location">Location</label>
         <input
@@ -17,7 +21,11 @@
           id="title"
           name="campground[location]"
           value="<%= campground.location %>"
+          required
         />
+        <div class="valid-feedback">
+          Looks good!
+        </div>
       </div>
       <div class="mb-3">
         <label class="form-label" for="image">Image Url</label>
@@ -27,7 +35,11 @@
           id="title"
           name="campground[image]"
           value="<%= campground.image %>"
+          required
         />
+        <div class="valid-feedback">
+          Looks good!
+        </div>
       </div>
       <div class="mb-3">
         <label class="form-label" for="price">Campground Price</label>
@@ -41,7 +53,11 @@
             aria-describedby="price-label"
             name="campground[price]"
             value="<%= campground.price %>"
+            required
           />
+          <div class="valid-feedback">
+            Looks good!
+          </div>
         </div>
       </div>
 
@@ -52,9 +68,13 @@
           type="text"
           id="title"
           name="campground[description]"
+          required
         >
 <%= campground.description %>"</textarea
         >
+        <div class="valid-feedback">
+          Looks good!
+        </div>
       </div>
       <div class="mb-3">
         <button class="btn btn-info">Save Campground</button>
@@ -63,5 +83,3 @@
     <a href="/campgrounds/<%= campground._id%>">Back To Campground</a>
   </div>
 </div>
-
-
