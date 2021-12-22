@@ -18,19 +18,6 @@ const sample = array => array[Math.floor(Math.random() * array.length)];
 const seedDB = async () => {
   await Campground.deleteMany({});
 
-  const seedImg = async () => {
-    try {
-      const resp = await axios.get('https://api.unsplash.com/photos/random', {
-        params: {
-          client_id: 'ACCESS_KEY',
-          collections: 483251,
-        },
-      })
-      return resp.data.urls.small
-    } catch (err) {
-      console.error(err)
-    }
-  }
   for (let i = 0; i < 50; i++) {
     const random1000 = Math.floor(Math.random() * 1000);
     const price = Math.floor(Math.random() * 20) + 10;
