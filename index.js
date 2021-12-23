@@ -95,9 +95,11 @@ app.all("*", (req, res, next) => {
 
 app.use((err, req, res, next) => {
   console.log("HERHEHRER");
-  console.log(err)
-  const { statusCode = 500, message = "Something Went Wrong" } = err;
-  res.status(statusCode).send(message);
+  console.log(err);
+  const { statusCode = 500 } = err;
+  if(!err.message) err.message = 'Oh No Something Went wrong!'
+  res.status(statusCode).render('error', { err })
+  
 });
 
 app.listen(8080, () => {
