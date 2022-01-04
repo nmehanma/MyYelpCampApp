@@ -37,6 +37,7 @@ router.post(
     // console.log(req.body.campground);
     await campground.save();
     console.log("New Campground created!");
+    req.flash('success', "Successfully made a new campground!")
     res.redirect(`/campgrounds/${campground._id}`);
   })
 );
