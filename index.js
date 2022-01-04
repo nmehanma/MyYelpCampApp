@@ -8,6 +8,7 @@ const ExpressError = require("./utils/ExpressError");
 const Campground = require("./models/campground");
 const Review = require("./models/review");
 const methodOverride = require("method-override");
+const campgrounds = require('./routes/campground');
 
 mongoose.connect("mongodb://localhost:27017/myyelpcamp", {
   useNewURLParser: true,
@@ -45,74 +46,7 @@ const validateReview = (req, res, next) => {
   } else next();
 };
 
-app.get(
-  "/campgrounds",
-  catchAsync(async (req, res) => {
-    const campgrounds = await Campground.find({});
-    res.render("campgrounds/index", { campgrounds });
-  })
-);
-
-app.get("/campgrounds/new", (req, res) => {
-  res.render("campgrounds/new");
-});
-
-app.post(
-  "/campgrounds",
-  validateCampground,
-  catchAsync(async (req, res, next) => {
-    // if (!req.body.campground) {
-    //   throw new ExpressError("Invalid campground Data", 400);
-    // }
-
-    const campground = new Campground(req.body.campground);
-    // console.log(req.body.campground);
-    await campground.save();
-    console.log("New Campground created!");
-    res.redirect(`/campgrounds/${campground._id}`);
-  })
-);
-
-app.get(
-  "/campgrounds/:id",
-  catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id).populate(
-      "reviews"
-    );
-    console.log(campground);
-    res.render("campgrounds/show", { campground });
-  })
-);
-
-app.get(
-  "/campgrounds/:id/edit",
-  catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id);
-    res.render("campgrounds/edit", { campground });
-  })
-);
-
-app.put(
-  "/campgrounds/:id",
-  validateCampground,
-  catchAsync(async (req, res) => {
-    const { id } = req.params;
-    const campground = await Campground.findByIdAndUpdate(id, {
-      ...req.body.campground
-    });
-    res.redirect(`/campgrounds/${campground._id}`);
-  })
-);
-
-app.delete(
-  "/campgrounds/:id",
-  catchAsync(async (req, res) => {
-    const { id } = req.params;
-    await Campground.findByIdAndDelete(id);
-    console.log("Campground Deleted");
-    res.redirect("/campgrounds");
-  })
-);
+app.use("/campgrounds", campgrounds);
 
 app.post(
   "/campgrounds/:id/reviews",
