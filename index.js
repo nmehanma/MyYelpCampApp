@@ -26,23 +26,9 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.use(express.static(path.join(__dirname, "public")));
 
-const validateCampground = (req, res, next) => {
-  const { error } = campgroundSchema.validate(req.body);
-  if (error) {
-    const msg = error.details.map(el => el.message).join(",");
-    throw new ExpressError(msg, 400);
-  } else next();
-};
 
-const validateReview = (req, res, next) => {
-  const { error } = reviewSchema.validate(req.body);
-  // console.log(req.body)
-  if (error) {
-    const msg = error.details.map(el => el.message).join(",");
-    throw new ExpressError(msg, 400);
-  } else next();
-};
 
 app.use("/campgrounds", campgrounds);
 app.use("/campgrounds/:id/reviews", reviews);
