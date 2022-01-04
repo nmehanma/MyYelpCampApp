@@ -69,6 +69,7 @@ router.put(
     const campground = await Campground.findByIdAndUpdate(id, {
       ...req.body.campground
     });
+    res.flash("success", "Successfully updated campground!")
     res.redirect(`/campgrounds/${campground._id}`);
   })
 );
@@ -79,6 +80,7 @@ router.delete(
     const { id } = req.params;
     await Campground.findByIdAndDelete(id);
     console.log("Campground Deleted");
+    req.flash('success', 'Succesfully deleted campground!')
     res.redirect("/campgrounds");
   })
 );
