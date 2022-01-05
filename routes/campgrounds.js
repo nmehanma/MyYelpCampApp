@@ -27,7 +27,8 @@ router.get("/new", isLoggedIn, (req, res) => {
 });
 
 router.post(
-  "/", isLoggedIn,
+  "/",
+  isLoggedIn,
   validateCampground,
   catchAsync(async (req, res, next) => {
     // if (!req.body.campground) {
@@ -36,6 +37,7 @@ router.post(
 
     const campground = new Campground(req.body.campground);
     // console.log(req.body.campground);
+    campground.author = req.user._id;
     await campground.save();
     console.log("New Campground created!");
     req.flash("success", "Successfully made a new campground!");
@@ -46,10 +48,10 @@ router.post(
 router.get(
   "/:id",
   catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id).populate(
-      "reviews"
-    );
-    // console.log(campground);
+    const campground = await Campground.findById(req.params.id)
+      .populate("reviews")
+      .populate("author");
+    console.log(campground);
     if (!campground) {
       req.flash("error", "Cannot find campground!");
       return res.redirect("/campgrounds");
@@ -59,7 +61,8 @@ router.get(
 );
 
 router.get(
-  "/:id/edit", isLoggedIn,
+  "/:id/edit",
+  isLoggedIn,
   catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     res.render("campgrounds/edit", { campground });
@@ -67,7 +70,8 @@ router.get(
 );
 
 router.put(
-  "/:id", isLoggedIn,
+  "/:id",
+  isLoggedIn,
   validateCampground,
   catchAsync(async (req, res) => {
     const { id } = req.params;
@@ -80,7 +84,8 @@ router.put(
 );
 
 router.delete(
-  "/:id", isLoggedIn,
+  "/:id",
+  isLoggedIn,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     await Campground.findByIdAndDelete(id);
