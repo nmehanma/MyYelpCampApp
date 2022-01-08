@@ -5,6 +5,10 @@
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
   const forms = document.querySelectorAll(".validated-form");
 
+  $(document).ready(function() {
+    bsCustomFileInput.init();
+  });
+
   // Loop over them and prevent submission
   Array.from(forms).forEach(function(form) {
     form.addEventListener(
