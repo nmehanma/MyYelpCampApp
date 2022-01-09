@@ -30,19 +30,19 @@ const seedDB = async () => {
         {
           url:
             "https://res.cloudinary.com/doqlk4ocr/image/upload/v1641528293/YelpCamp/s8qg5sy2jmj6vwxe12yr.png",
-          filename: "YelpCamp/s8qg5sy2jmj6vwxe12yr",
+          filename: "YelpCamp/s8qg5sy2jmj6vwxe12yr"
         },
         {
           url:
             "https://res.cloudinary.com/doqlk4ocr/image/upload/v1641528293/YelpCamp/l22rth0xezcjahzepadz.png",
-          filename: "YelpCamp/l22rth0xezcjahzepadz",
+          filename: "YelpCamp/l22rth0xezcjahzepadz"
         }
       ],
       // image: "https://source.unsplash.com/collection/483251",
       description:
         "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ducimus qui at fugit dolorem rem. Nulla aspernatur asperiores, fugit placeat velit omnis doloribus est quam similique harum praesentium iusto fugiat minus.",
       price,
-       geometry: { type: 'Point', coordinates: [ -79.383935, 43.653482 ] }
+      geometry: { type: "Point", coordinates: [-79.383935, 43.653482] }
     });
     await camp.save();
   }
