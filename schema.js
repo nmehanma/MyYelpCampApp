@@ -33,8 +33,12 @@ module.exports.campgroundSchema = Joi.object({
       .required()
       .min(0),
     // image: Joi.string().required(),
-    location: Joi.string().required().escapeHTML(),
-    description: Joi.string().required().escapeHTML()
+    location: Joi.string()
+      .required()
+      .escapeHTML(),
+    description: Joi.string()
+      .required()
+      .escapeHTML()
   }).required(),
   deleteImages: Joi.array()
 });
