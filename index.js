@@ -42,12 +42,12 @@ app.use(express.static(path.join(__dirname, "public")));
 // mongosanitize
 app.use(
   mongoSanitize({
-    replaceWith: "_",
+    replaceWith: "_"
   })
 );
 
 const sessionConfig = {
-  name:'session', 
+  name: "session",
   secret: "thisshouldbeabettersecret!",
   resave: false,
   saveUninitialized: true,
