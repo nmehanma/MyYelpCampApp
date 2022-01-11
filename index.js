@@ -20,7 +20,11 @@ const userRoutes = require("./routes/users");
 const campgroundRoutes = require("./routes/campgrounds");
 const reviewRoutes = require("./routes/reviews");
 
-mongoose.connect("mongodb://localhost:27017/myyelpcamp", {
+const MongoStore = require('connect-mongo')
+
+const dbUrl = "mongodb://localhost:27017/myyelpcamp";
+
+mongoose.connect(dbUrl, {
   useNewURLParser: true,
   useUnifiedtopology: true
 });
@@ -47,7 +51,20 @@ app.use(
   })
 );
 
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  touchAfter: 24 * 60 * 60,
+  crypto: {
+    secret: "thisshouldbeabettersecret!",
+  }
+});
+
+store.on("error", function (e) {
+  console.log("SESSION STORE ERROR", e)
+})
+
 const sessionConfig = {
+  store,
   name: "session",
   secret: "thisshouldbeabettersecret!",
   resave: false,
@@ -64,7 +81,6 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 // app.use(helmet());
-
 
 //passport authentication
 
