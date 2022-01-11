@@ -24,6 +24,8 @@ const MongoStore = require("connect-mongo");
 
 const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/myyelpcamp";
 
+console.log(dbUrl)
+
 mongoose.connect(dbUrl, {
   useNewURLParser: true,
   useUnifiedtopology: true
