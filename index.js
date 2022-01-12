@@ -19,6 +19,12 @@ const mongoSanitize = require("express-mongo-sanitize");
 const userRoutes = require("./routes/users");
 const campgroundRoutes = require("./routes/campgrounds");
 const reviewRoutes = require("./routes/reviews");
+const MongoStore = require("connect-mongo")(session);
+
+const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/myyelpcamp";
+
+// "mongodb://localhost:27017/myyelpcamp"
+// dbUrl
 
 mongoose.connect("mongodb://localhost:27017/myyelpcamp", {
   useNewURLParser: true,
@@ -47,9 +53,22 @@ app.use(
   })
 );
 
+const secret = proces.env.SECRET || "thisshouldbeasecret"
+
+const store = new MongoStore({
+  url: dbUrl,
+  secret: "thisisasecret",
+  touchAfter: 24 * 60 * 60
+});
+
+store.on("error", function(e) {
+  console.log("SESSION STORE ERROR", e);
+});
+
 const sessionConfig = {
+  store,
   name: "session",
-  secret: "thisshouldbeabettersecret!",
+  secret,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -64,7 +83,6 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 // app.use(helmet());
-
 
 //passport authentication
 
