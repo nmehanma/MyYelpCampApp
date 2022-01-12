@@ -59,14 +59,6 @@ app.use(
   })
 );
 
-<<<<<<< HEAD
-const secret = process.env.SECRET || "thisshouldbeasecret"
-
-const store = new MongoStore({
-  url: dbUrl,
-  secret: "thisisasecret",
-  touchAfter: 24 * 60 * 60
-=======
 const secret = process.env.SECRET || "thisshouldbeabettersecret!";
 
 const store = MongoStore.create({
@@ -75,7 +67,6 @@ const store = MongoStore.create({
   crypto: {
     secret
   }
->>>>>>> 0ffffb17fa8e465414cc8272e48089f71e547b3e
 });
 
 store.on("error", function(e) {
