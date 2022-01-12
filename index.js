@@ -26,7 +26,13 @@ const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/myyelpcamp";
 // "mongodb://localhost:27017/myyelpcamp"
 // dbUrl
 
-mongoose.connect("mongodb://localhost:27017/myyelpcamp", {
+const MongoStore = require("connect-mongo");
+
+const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/myyelpcamp";
+
+console.log(dbUrl)
+
+mongoose.connect(dbUrl, {
   useNewURLParser: true,
   useUnifiedtopology: true
 });
@@ -53,12 +59,23 @@ app.use(
   })
 );
 
+<<<<<<< HEAD
 const secret = process.env.SECRET || "thisshouldbeasecret"
 
 const store = new MongoStore({
   url: dbUrl,
   secret: "thisisasecret",
   touchAfter: 24 * 60 * 60
+=======
+const secret = process.env.SECRET || "thisshouldbeabettersecret!";
+
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  touchAfter: 24 * 60 * 60,
+  crypto: {
+    secret
+  }
+>>>>>>> 0ffffb17fa8e465414cc8272e48089f71e547b3e
 });
 
 store.on("error", function(e) {
@@ -122,6 +139,7 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render("error", { err });
 });
 
-app.listen(8080, () => {
-  console.log("Listening on Port 8080");
+const port = process.env.Port || 3000;
+app.listen(port, () => {
+  console.log(`Listening on Port ${port}`);
 });

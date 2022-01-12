@@ -1,10 +1,10 @@
 {
-  "name": "YelpCampApp",
+  "name": "yelpcampapp",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": " nodemon index.js",
+    "start": " node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -15,7 +15,11 @@
     "body-parser": "^1.19.1",
     "cloudinary": "^1.28.1",
     "connect-flash": "^0.1.1",
+<<<<<<< HEAD
     "connect-mongo": "3.2.0",
+=======
+    "connect-mongo": "^4.6.0",
+>>>>>>> 0ffffb17fa8e465414cc8272e48089f71e547b3e
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "ejs-mate": "^3.0.0",
